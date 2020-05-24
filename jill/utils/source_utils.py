@@ -18,6 +18,7 @@ from string import Template
 import requests
 import json
 import os
+import asyncio
 
 from typing import List
 
@@ -198,12 +199,20 @@ class SourceRegistry:
         url_list = self._get_urls(version, system, arch)
 
         url_list = chain.from_iterable(repeat(url_list, max_try))
-        for url in url_list:
-            if show_verbose():
-                print(f"query {url}")
-            if is_url_available(url, timeout):
+
+        async def _get_valid_url(url):
+            if await is_url_available(url, timeout):
                 return url
-        return None
+            else:
+                return None
+
+        async def wait_first():
+            done, pending = await asyncio.wait(
+                [_get_valid_url(url) for url in url_list],
+                return_when=asyncio.FIRST_COMPLETED)
+            return done.pop().result()
+
+        return asyncio.get_event_loop().run_until_complete(wait_first())
 
 
 def show_upstream():

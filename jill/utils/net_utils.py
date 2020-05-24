@@ -5,6 +5,7 @@ import socket
 import requests
 import time
 import logging
+import asyncio
 
 from requests.exceptions import RequestException
 
@@ -65,7 +66,7 @@ def port_response_time(host, port, timeout=2):
     return min(roundtrip, timeout)
 
 
-def is_url_available(url, timeout) -> bool:
+async def is_url_available(url, timeout) -> bool:
     try:
         logging.debug(f"try {url}")
         r = requests.head(url, timeout=timeout)

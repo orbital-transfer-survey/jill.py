@@ -109,7 +109,7 @@ def is_version_released(version, system, architecture,
         registry = SourceRegistry(upstream=upstream)
         rst = bool(registry.query_download_url(*item,
                                                timeout=timeout,
-                                               max_try=1))
+                                               max_try=3))
         if show_verbose():
             c = color.GREEN if rst else color.RED
             msg = f"{c}{item}={rst}{color.END}"
