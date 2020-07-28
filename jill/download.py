@@ -88,7 +88,7 @@ def download_package(version=None, sys=None, arch=None, *,
     Arguments:
       version:
         The Julia version you want to install. See also `jill install`
-      sys: Options are: "linux", "macos", "freebsd", "windows"
+      sys: Options are: "linux", "musl", "macos", "freebsd", "windows"
       arch: Options are: "i686", "x86_64", "ARMv7", "ARMv8"
       upstream:
         manually choose a download upstream. For example, set it to "Official"

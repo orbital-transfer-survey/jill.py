@@ -87,7 +87,8 @@ jobs:
         # issue: https://github.com/abelsiqueira/jill/issues/25
         run: |
           mkdir ~/.local/bin -p && ln -sf /abcde ~/.local/bin/julia
-          python -m jill install --sys musl --confirm --upstream Official
+          python -m jill download --sys musl --upstream Official
+          python -m jill install --libc musl --upstream Official --confirm
           julia -e 'using InteractiveUtils; versioninfo()'
 
       - name: generate covrage report

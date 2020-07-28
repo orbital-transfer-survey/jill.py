@@ -278,6 +278,7 @@ def install_julia(version=None, *,
                   upgrade=False,
                   upstream=None,
                   keep_downloads=False,
+                  libc="glibc",
                   confirm=False):
     """
     Install the Julia programming language for your current system
@@ -298,6 +299,7 @@ def install_julia(version=None, *,
     To download from a private mirror, please check `jill download -h`.
 
     Arguments:
+      libc: "glibc"(default), "musl"
       version:
         The Julia version you want to install.
       upstream:
@@ -320,6 +322,9 @@ def install_julia(version=None, *,
     version = str(version) if (version or str(version) == "0") else ''
     version = "latest" if version == "nightly" else version
     version = "" if version == "stable" else version
+
+    if system == "linux" and libc == "musl":
+        system = "musl"
 
     hello_msg()
     if system == "windows":
