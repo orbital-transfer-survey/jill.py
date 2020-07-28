@@ -61,7 +61,7 @@ jobs:
           file: ./coverage.xml
 
   musl_job:
-    name: Unit Test
+    name: Unit Test for musl
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -70,7 +70,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-          python-version: ${{ matrix.python }}
+          python-version: 3.6
 
       - name: Install dependencies
         run: |
